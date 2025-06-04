@@ -1,0 +1,25 @@
+name: Run Friend Status Checker every 5 minutes
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'   # প্রতি ৫ মিনিটে রান করবে
+  workflow_dispatch:         # ম্যানুয়ালি চাইলে চালানোর জন্য
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: pip install requests
+
+    - name: Run friendstatus script
+      run: python friendstatus.py
